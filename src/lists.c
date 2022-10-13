@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   lists.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/20 12:45:42 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/13 10:53:36 by segarcia         ###   ########.fr       */
+/*   Created: 2022/10/13 10:42:21 by segarcia          #+#    #+#             */
+/*   Updated: 2022/10/13 11:39:49 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/push_swap.h"
 
-t_list	*ft_lstnew(void *content)
+t_node	*ft_new_node(int value)
 {
-	t_list	*new;
+	t_node	*new;
 
-	new = (t_list *)malloc(sizeof(t_list));
+	new = (t_node *)malloc(sizeof(t_node));
 	if (!new)
 		return (NULL);
-	new->content = content;
+	new->value = value;
 	new->next = NULL;
 	return (new);
+}
+
+void	ft_print_list(t_node *lst)
+{
+	while (lst)
+	{
+		ft_printf("LIST: %i\n", lst->value);
+		lst = lst->next;
+	}
 }

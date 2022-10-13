@@ -6,12 +6,12 @@
 #    By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 13:08:18 by segarcia          #+#    #+#              #
-#    Updated: 2022/10/10 13:24:36 by segarcia         ###   ########.fr        #
+#    Updated: 2022/10/13 11:27:13 by segarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		= push_swap
-SRC			= ./src/main.c
+SRC			= ./src/main.c ./src/lists.c
 OBJS		= $(SRC:.c=.o)
 
 LIBFT		= ./libft/libft.a
@@ -26,7 +26,7 @@ CFLAGS		= -Wall -Werror -Wextra
 all: $(NAME)
 
 $(LIBFT):
-	@make -C $(LIBFT_PATH)
+	@make bonus -C $(LIBFT_PATH)
 
 $(PRINTF):
 	@make -C $(PRINTF_PATH)
