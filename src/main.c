@@ -6,11 +6,17 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:46:01 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/13 11:48:15 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:00:51 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
+
+static void	exit_error(void)
+{
+	ft_printf("Error\n");
+	exit(EXIT_FAILURE);
+}
 
 static void	sign_validation(char num, int *i, int *sign)
 {
@@ -26,15 +32,9 @@ static void	sign_validation(char num, int *i, int *sign)
 static void	check_max(long long int num)
 {
 	if (num < 0 && num < INT_MIN)
-	{
-		ft_printf("Error\n");
-		exit(EXIT_FAILURE);
-	}
+		exit_error();
 	if (num > 0 && num > INT_MAX)
-	{
-		ft_printf("Error\n");
-		exit(EXIT_FAILURE);
-	}
+		exit_error();
 }
 
 static int	ft_atoi_checker(const char *str)
@@ -52,10 +52,7 @@ static int	ft_atoi_checker(const char *str)
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
-		{
-			ft_printf("Error\n");
-			exit(EXIT_FAILURE);
-		}
+			exit_error();
 		res = (res * 10) + (str[i] - '0');
 		check_max(res * sign);
 		i++;
@@ -66,60 +63,69 @@ static int	ft_atoi_checker(const char *str)
 t_node	*save_into_stack(t_node *stack, int value)
 {
 	t_node	*new;
-	t_node	*ptr;
+	t_node	*tmp;
 
-	new = (t_node *)malloc(sizeof(t_node));
+	new = ft_new_node(value);
 	if (!new)
-	{
-		ft_printf("Malloc Error in Stack allocation");
-		exit(EXIT_FAILURE);
-	}
-	new->value = value;
-	new->next = NULL;
+		ft_printf("Free all nodes");
 	if (stack == NULL)
 		stack = new;
 	else
 	{
-		ptr = stack;
-		while (ptr->next != NULL)
-			ptr = ptr->next;
-		ptr->next = new;
+		tmp = stack;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = new;
 	}
 	return (stack);
 }
 
-static t_node	*arg_validation(int argc, char **argv, t_node *stack_a)
+static void is_double_nbr(t_node *stack, int nbr)
+{
+
+	if (!stack)
+		return ;
+	while(stack)
+	{
+		if (stack->value == nbr)
+			exit_error();
+		stack = stack->next;
+	}
+}
+
+static t_node	*parse_input(char **argv, t_node *stack_a)
 {
 	char	**split;
+	int		nbr;
 	int		i;
 	int		j;
 
 	i = 1;
 	j = 0;
-	if (argc < 2)
-		exit(EXIT_FAILURE);
-	if (argc >= 2)
+	while (argv[i])
 	{
-		while (argv[i])
+		split = ft_split(argv[i], ' ');
+		if (!split)
+			exit_error();
+		j = 0;
+		while (split[j])
 		{
-			split = ft_split(argv[i], ' ');
-			if (!split)
-			{
-				ft_printf("Error in ft_split function \n");
-				exit(EXIT_FAILURE);
-			}
-			j = 0;
-			while (split[j])
-			{
-				stack_a = save_into_stack(stack_a, ft_atoi_checker(split[j]));
-				free(split[j]);
-				j++;
-			}
-			free(split);
-			i++;
+			nbr = ft_atoi_checker(split[j]);
+			is_double_nbr(stack_a, nbr);
+			stack_a = save_into_stack(stack_a, nbr);
+			free(split[j]);
+			j++;
 		}
+		free(split);
+		i++;
 	}
 	return (stack_a);
+}
+
+static void	stack_init(t_node **stack_1, t_node **stack_2)
+{
+	*stack_1 = NULL;
+	*stack_2 = NULL;
 }
 
 int	main(int argc, char **argv)
@@ -127,12 +133,12 @@ int	main(int argc, char **argv)
 	t_node	*stack_a;
 	t_node	*stack_b;
 
-	stack_a = NULL;
-	stack_b = NULL;
-	stack_a = arg_validation(argc, argv, stack_a);
+	if (argc < 2)
+		exit(EXIT_FAILURE);
+	stack_init(&stack_a, &stack_b);
+	stack_a = parse_input(argv, stack_a);
 	ft_print_list(stack_a);
-	ft_print_list(stack_b);
-	system("leaks push_swap");
+	// system("leaks push_swap");
 	/** Loop and check for repeated numbers */
 	return (0);
 }

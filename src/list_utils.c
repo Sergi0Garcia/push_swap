@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lists.c                                            :+:      :+:    :+:   */
+/*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 10:42:21 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/13 11:39:49 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:39:40 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_print_list(t_node *lst)
 {
 	while (lst)
 	{
-		ft_printf("LIST: %i\n", lst->value);
+		ft_printf("lst: %i\n", lst->value);
 		lst = lst->next;
 	}
 }
