@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 10:42:21 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/13 14:39:40 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/14 14:03:15 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,17 @@ t_node	*ft_new_node(int value)
 	new->value = value;
 	new->next = NULL;
 	return (new);
+}
+
+t_node	*ft_last_node(t_node *lst)
+{
+	while (lst)
+	{
+		if (!lst->next)
+			return (lst);
+		lst = lst->next;
+	}
+	return (lst);
 }
 
 void	ft_print_list(t_node *lst)

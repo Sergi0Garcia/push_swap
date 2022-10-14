@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   instructions.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/10 13:18:27 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/14 14:03:58 by segarcia         ###   ########.fr       */
+/*   Created: 2022/10/14 12:21:00 by segarcia          #+#    #+#             */
+/*   Updated: 2022/10/14 13:06:08 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "../include/push_swap.h"
 
-typedef struct	s_node
+static void	swap_a(t_node **stack)
 {
-	int				value;
-	struct s_node	*next;
-}				t_node;
+	t_node	*list;
+	t_node	*tmp;
 
-# include "../libft/libft.h"
-# include "../libft/ft_printf/include/ft_printf.h"
-# include <signal.h>
-
-t_node	*ft_new_node(int value);
-void	ft_print_list(t_node *lst);
-t_node	*ft_last_node(t_node *lst);
-
-#endif
+	list = *stack;
+	if (list && list->next)
+	{
+		tmp = list;
+		list = list->next;
+		list->next = tmp;
+	}
+	*stack = list;
+}

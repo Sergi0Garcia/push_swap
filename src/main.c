@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:46:01 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/13 15:00:51 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/14 14:25:54 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,23 @@ t_node	*save_into_stack(t_node *stack, int value)
 
 static void is_double_nbr(t_node *stack, int nbr)
 {
-
-	if (!stack)
-		return ;
 	while(stack)
 	{
 		if (stack->value == nbr)
 			exit_error();
 		stack = stack->next;
 	}
+}
+
+static int is_stack_ordered(t_node *stack)
+{
+	while (stack && stack->next)
+	{
+		if (stack->value > stack->next->value)
+			return (0);
+		stack = stack->next;
+	}
+	return (1);
 }
 
 static t_node	*parse_input(char **argv, t_node *stack_a)
@@ -128,6 +136,53 @@ static void	stack_init(t_node **stack_1, t_node **stack_2)
 	*stack_2 = NULL;
 }
 
+static void	swap(t_node **stack)
+{
+	t_node	*node_1;
+	t_node	*node_2;
+
+	node_1 = *stack;
+	node_2 = node_1->next;
+	if (node_1 && node_2)
+	{
+		node_1->next = node_2->next;
+		node_2->next = node_1;
+	}
+	*stack = node_2;
+}
+
+static void	push(t_node	**origin, t_node **destination)
+{
+	t_node	*o;
+	t_node	*d;
+	t_node	*tmp;
+
+	o = *origin;
+	d = *destination;
+
+	if (!o)
+		return ;
+	tmp = o->next;
+	o->next = d;
+	d = o;
+	o = tmp;
+	*origin = o;
+	*destination = d;
+}
+
+static void	rotate(t_node **stack)
+{
+	t_node	*list;
+	t_node	*last;
+
+	list = *stack;
+	if (list && list->next)
+	{
+		last = ft_last_node(list);
+		tmp = list;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_node	*stack_a;
@@ -137,8 +192,17 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	stack_init(&stack_a, &stack_b);
 	stack_a = parse_input(argv, stack_a);
+	if (is_stack_ordered(stack_a))
+		exit(EXIT_SUCCESS);
+	swap(&stack_a);
+	stack_b = save_into_stack(stack_b, 8);
+	stack_b = save_into_stack(stack_b, 7);
+	push(&stack_b, &stack_a);
+	push(&stack_b, &stack_a);
+	ft_printf("--- a ---\n");
 	ft_print_list(stack_a);
-	// system("leaks push_swap");
-	/** Loop and check for repeated numbers */
+	ft_printf("--- b ---\n");
+	ft_print_list(stack_b);
+	system("leaks push_swap");
 	return (0);
 }
