@@ -6,12 +6,18 @@
 #    By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 13:08:18 by segarcia          #+#    #+#              #
-#    Updated: 2022/10/13 14:39:32 by segarcia         ###   ########.fr        #
+#    Updated: 2022/10/19 09:58:05 by segarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		= push_swap
-SRC			= ./src/main.c ./src/list_utils.c
+SRC			= 	./src/main.c			\
+				./src/list_utils.c  	\
+				./src/atoi_checker.c 	\
+				./src/init.c			\
+				./src/instructions.c	\
+				./src/error.c
+
 OBJS		= $(SRC:.c=.o)
 
 LIBFT		= ./libft/libft.a

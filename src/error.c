@@ -1,45 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_utils.c                                       :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 10:42:21 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/19 09:49:10 by segarcia         ###   ########.fr       */
+/*   Created: 2022/10/19 09:30:11 by segarcia          #+#    #+#             */
+/*   Updated: 2022/10/19 09:30:57 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-t_node	*ft_new_node(int value)
+void	exit_error(void)
 {
-	t_node	*new;
-
-	new = (t_node *)malloc(sizeof(t_node));
-	if (!new)
-		return (NULL);
-	new->value = value;
-	new->next = NULL;
-	return (new);
-}
-
-t_node	*ft_last_node(t_node *lst)
-{
-	while (lst)
-	{
-		if (!lst->next)
-			return (lst);
-		lst = lst->next;
-	}
-	return (lst);
-}
-
-void	ft_print_list(t_node *lst)
-{
-	while (lst)
-	{
-		ft_printf("lst: %i\n", lst->value);
-		lst = lst->next;
-	}
+	ft_printf("Error\n");
+	exit(EXIT_FAILURE);
 }
