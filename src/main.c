@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:46:01 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/19 13:40:40 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/19 13:42:06 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	is_stack_ordered(t_node *stack)
 	return (1);
 }
 
-static void print_ab(t_node *stack_a, t_node *stack_b)
+static void	print_ab(t_node *stack_a, t_node *stack_b)
 {
 	ft_printf("--- a ---\n");
 	ft_print_list(stack_a);

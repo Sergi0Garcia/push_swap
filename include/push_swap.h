@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 13:18:27 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/19 13:20:06 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/19 13:41:42 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "../libft/ft_printf/include/ft_printf.h"
 # include <signal.h>
 
-typedef struct	s_node
+typedef struct s_node
 {
 	int				value;
 	struct s_node	*next;
