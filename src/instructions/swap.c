@@ -1,19 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 09:30:11 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/19 13:22:12 by segarcia         ###   ########.fr       */
+/*   Created: 2022/10/19 13:01:14 by segarcia          #+#    #+#             */
+/*   Updated: 2022/10/19 13:38:21 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/push_swap.h"
+#include "../../include/push_swap.h"
 
-void	exit_error(void)
+void	swap_a(t_node **stack_a)
 {
-	ft_printf("Error\n");
-	exit(EXIT_FAILURE);
+	swap(stack_a);
+	ft_printf("sa\n");
+}
+
+void	swap_b(t_node **stack_b)
+{
+	swap(stack_b);
+	ft_printf("sb\n");
+}
+
+void	swap_ab(t_node **stack_a, t_node **stack_b)
+{
+	swap(stack_a);
+	swap(stack_b);
+	ft_printf("ss\n");
 }

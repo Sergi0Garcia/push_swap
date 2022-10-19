@@ -6,15 +6,15 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 09:24:07 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/19 09:58:20 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/19 13:22:54 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-static void is_double_nbr(t_node *stack, int nbr)
+static void	is_double_nbr(t_node *stack, int nbr)
 {
-	while(stack)
+	while (stack)
 	{
 		if (stack->value == nbr)
 			exit_error();
@@ -60,7 +60,7 @@ void	parse_input(char **argv, t_node **stack_a)
 		{
 			nbr = ft_atoi_checker(split[j]);
 			is_double_nbr(*stack_a, nbr);
-			save_into_stack(*stack_a, nbr);
+			save_into_stack(stack_a, nbr);
 			free(split[j]);
 			j++;
 		}

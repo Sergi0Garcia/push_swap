@@ -6,13 +6,13 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:46:01 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/19 09:56:07 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/19 13:40:40 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-static int is_stack_ordered(t_node *stack)
+static int	is_stack_ordered(t_node *stack)
 {
 	while (stack && stack->next)
 	{
@@ -23,38 +23,12 @@ static int is_stack_ordered(t_node *stack)
 	return (1);
 }
 
-static void	swap(t_node **stack)
+static void print_ab(t_node *stack_a, t_node *stack_b)
 {
-	t_node	*node_1;
-	t_node	*node_2;
-
-	node_1 = *stack;
-	node_2 = node_1->next;
-	if (node_1 && node_2)
-	{
-		node_1->next = node_2->next;
-		node_2->next = node_1;
-	}
-	*stack = node_2;
-}
-
-static void	push(t_node	**origin, t_node **destination)
-{
-	t_node	*o;
-	t_node	*d;
-	t_node	*tmp;
-
-	o = *origin;
-	d = *destination;
-
-	if (!o)
-		return ;
-	tmp = o->next;
-	o->next = d;
-	d = o;
-	o = tmp;
-	*origin = o;
-	*destination = d;
+	ft_printf("--- a ---\n");
+	ft_print_list(stack_a);
+	ft_printf("--- b ---\n");
+	ft_print_list(stack_b);
 }
 
 int	main(int argc, char **argv)
@@ -69,15 +43,29 @@ int	main(int argc, char **argv)
 	parse_input(argv, &stack_a);
 	if (is_stack_ordered(stack_a))
 		exit(EXIT_SUCCESS);
+	print_ab(stack_a, stack_b);
+	ft_printf("--- Exec sa ---\n");
 	swap(&stack_a);
-	// save_into_stack(&stack_b, 8);
-	// save_into_stack(&stack_b, 7);
-	push(&stack_b, &stack_a);
-	push(&stack_b, &stack_a);
-	ft_printf("--- a ---\n");
-	ft_print_list(stack_a);
-	ft_printf("--- b ---\n");
-	ft_print_list(stack_b);
-	system("leaks push_swap");
+	print_ab(stack_a, stack_b);
+	ft_printf("--- Exec pb pb pb ---\n");
+	push_b(&stack_a, &stack_b);
+	push_b(&stack_a, &stack_b);
+	push_b(&stack_a, &stack_b);
+	print_ab(stack_a, stack_b);
+	ft_printf("--- Exec rr ---\n");
+	rotate_ab(&stack_a, &stack_b);
+	print_ab(stack_a, stack_b);
+	ft_printf("--- Exec rrr ---\n");
+	reverse_rotate_ab(&stack_a, &stack_b);
+	print_ab(stack_a, stack_b);
+	ft_printf("--- Exec sa ---\n");
+	swap(&stack_a);
+	print_ab(stack_a, stack_b);
+	ft_printf("--- Exec pa pa pa ---\n");
+	push_a(&stack_a, &stack_b);
+	push_a(&stack_a, &stack_b);
+	push_a(&stack_a, &stack_b);
+	print_ab(stack_a, stack_b);
+	// system("leaks push_swap");
 	return (0);
 }
