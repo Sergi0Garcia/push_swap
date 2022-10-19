@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:46:01 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/14 14:25:54 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/19 09:18:47 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,18 +170,18 @@ static void	push(t_node	**origin, t_node **destination)
 	*destination = d;
 }
 
-static void	rotate(t_node **stack)
-{
-	t_node	*list;
-	t_node	*last;
+// static void	rotate(t_node **stack)
+// {
+// 	t_node	*list;
+// 	t_node	*last;
 
-	list = *stack;
-	if (list && list->next)
-	{
-		last = ft_last_node(list);
-		tmp = list;
-	}
-}
+// 	list = *stack;
+// 	if (list && list->next)
+// 	{
+// 		last = ft_last_node(list);
+// 		tmp = list;
+// 	}
+// }
 
 int	main(int argc, char **argv)
 {
