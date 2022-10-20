@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 13:18:27 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/20 10:30:29 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/20 12:07:49 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	rotate(t_node **stack);
 void	reverse_rotate(t_node **stack);
 void	push_a(t_node **stack_a, t_node **stack_b);
 void	push_b(t_node **stack_a, t_node **stack_b);
-void	otate_a(t_node **stack_a);
+void	rotate_a(t_node **stack_a);
 void	rotate_b(t_node **stack_b);
 void	rotate_ab(t_node **stack_a, t_node **stack_b);
 void	reverse_rotate_a(t_node **stack_a);
