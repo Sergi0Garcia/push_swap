@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:46:01 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/19 13:42:06 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/20 10:47:50 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,35 @@ static int	is_stack_ordered(t_node *stack)
 	return (1);
 }
 
-static void	print_ab(t_node *stack_a, t_node *stack_b)
+// static void	print_ab(t_node *stack_a, t_node *stack_b)
+// {
+// 	ft_printf("--- a ---\n");
+// 	ft_print_list(stack_a);
+// 	ft_printf("--- b ---\n");
+// 	ft_print_list(stack_b);
+// }
+
+static void sort_stack_size_2(t_node **stack_a)
 {
-	ft_printf("--- a ---\n");
-	ft_print_list(stack_a);
-	ft_printf("--- b ---\n");
-	ft_print_list(stack_b);
+	if ((*stack_a)->value > (*stack_a)->next->value)
+		swap_a(stack_a);
+}
+
+static void sort_stack_size_3(t_node **stack_a)
+{
+	if ((*stack_a)->value > (*stack_a)->next->value)
+		swap_a(stack_a);
+	if ((*stack_a)->next->value > (*stack_a)->next->next->value)
+		reverse_rotate_a(stack_a);
+	if ((*stack_a)->value > (*stack_a)->next->value)
+		swap_a(stack_a);
 }
 
 int	main(int argc, char **argv)
 {
 	t_node	*stack_a;
 	t_node	*stack_b;
+	int		stack_size;
 
 	stack_a = NULL;
 	stack_b = NULL;
@@ -43,29 +60,11 @@ int	main(int argc, char **argv)
 	parse_input(argv, &stack_a);
 	if (is_stack_ordered(stack_a))
 		exit(EXIT_SUCCESS);
-	print_ab(stack_a, stack_b);
-	ft_printf("--- Exec sa ---\n");
-	swap(&stack_a);
-	print_ab(stack_a, stack_b);
-	ft_printf("--- Exec pb pb pb ---\n");
-	push_b(&stack_a, &stack_b);
-	push_b(&stack_a, &stack_b);
-	push_b(&stack_a, &stack_b);
-	print_ab(stack_a, stack_b);
-	ft_printf("--- Exec rr ---\n");
-	rotate_ab(&stack_a, &stack_b);
-	print_ab(stack_a, stack_b);
-	ft_printf("--- Exec rrr ---\n");
-	reverse_rotate_ab(&stack_a, &stack_b);
-	print_ab(stack_a, stack_b);
-	ft_printf("--- Exec sa ---\n");
-	swap(&stack_a);
-	print_ab(stack_a, stack_b);
-	ft_printf("--- Exec pa pa pa ---\n");
-	push_a(&stack_a, &stack_b);
-	push_a(&stack_a, &stack_b);
-	push_a(&stack_a, &stack_b);
-	print_ab(stack_a, stack_b);
+	stack_size = ft_lst_size(stack_a);
+	if (stack_size == 2)
+		sort_stack_size_2(&stack_a);
+	else if (stack_size == 3)
+		sort_stack_size_3(&stack_a);
 	// system("leaks push_swap");
 	return (0);
 }

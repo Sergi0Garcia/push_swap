@@ -6,11 +6,26 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 10:42:21 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/19 13:22:25 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/20 10:25:15 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
+
+int	ft_lst_size(t_node *lst)
+{
+	size_t	i;
+
+	i = 0;
+	if (!lst)
+		return (0);
+	while (lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
+}
 
 t_node	*ft_new_node(int value)
 {
