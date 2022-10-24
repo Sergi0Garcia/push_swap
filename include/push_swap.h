@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 13:18:27 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/20 12:07:49 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/24 13:14:40 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_node
 }					t_node;
 
 void	exit_error(void);
+int		is_stack_ordered(t_node *stack);
 int		ft_atoi_checker(const char *str);
 void	save_into_stack(t_node **stack, int value);
 void	parse_input(char **argv, t_node **stack_a);
