@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:46:01 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/24 14:49:23 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/25 14:27:06 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,59 +67,109 @@ static void sort_3(t_node **stack_a)
 	}
 }
 
-static void	sort_5(t_node **stack_a, t_node **stack_b)
+int	find_smallest_idx(t_node **stack)
 {
 	int i;
-	t_node *last;
+	int smallest;
+	int smallest_index;
+	t_node *cpy;
 
-	last = ft_last_node(*stack_a);
-	push_b(stack_a, stack_b);
-	push_b(stack_a, stack_b);
-	if ((*stack_b)->value > (*stack_b)->next->value)
-		swap_b(stack_b);
+	cpy = *stack;
+	smallest = cpy->value;
+	smallest_index = 0;
+	i = 0;
+	while (cpy->next)
+	{
+		i++;
+		if (cpy->next->value < smallest)
+		{
+			smallest = cpy->next->value;
+			smallest_index = i;
+		}
+		cpy = cpy->next;
+	}
+	return (smallest_index);
+}
+
+
+static void sort_4(t_node **stack_a, t_node **stack_b)
+{
+	int smallest_idx;
+
+	smallest_idx = find_smallest_idx(stack_a);
+	if (smallest_idx == 0)
+		push_b(stack_a, stack_b);
+	else if (smallest_idx == 1)
+	{
+		swap_a(stack_a);
+		push_b(stack_a, stack_b);
+	}
+	else if (smallest_idx == 2)
+	{
+		rotate_a(stack_a);
+		rotate_a(stack_a);
+		push_b(stack_a, stack_b);
+	}
+	else if (smallest_idx == 3)
+	{
+		reverse_rotate_a(stack_a);
+		push_b(stack_a, stack_b);
+	}
 	sort_3(stack_a);
-	i = 0;
-	last = ft_last_node(*stack_a);
-	if ((*stack_b)->value > last->value)
+	push_a(stack_a, stack_b);
+}
+
+static void sort_5_2(t_node **stack_a, t_node **stack_b)
+{
+	int smallest_idx;
+
+	smallest_idx = find_smallest_idx(stack_a);
+	if (smallest_idx == 0)
+		push_b(stack_a, stack_b);
+	else if (smallest_idx == 1)
 	{
-		push_a(stack_a, stack_b);
+		swap_a(stack_a);
+		push_b(stack_a, stack_b);
+	}
+	else if (smallest_idx == 2)
+	{
 		rotate_a(stack_a);
-	}
-	else
-	{
-		while ((*stack_b)->value > (*stack_a)->value)
-		{
-			rotate_a(stack_a);
-			i++;
-		}
-		push_a(stack_a, stack_b);
-		while (i > 0)
-		{
-			reverse_rotate_a(stack_a);
-			i--;
-		}
-	}
-	i = 0;
-	last = ft_last_node(*stack_a);
-	if ((*stack_b)->value > last->value)
-	{
-		push_a(stack_a, stack_b);
 		rotate_a(stack_a);
+		push_b(stack_a, stack_b);
 	}
-	else
+	else if (smallest_idx == 3)
 	{
-		while ((*stack_b)->value > (*stack_a)->value)
-		{
-			rotate_a(stack_a);
-			i++;
-		}
-		push_a(stack_a, stack_b);
-		while (i > 0)
-		{
-			reverse_rotate_a(stack_a);
-			i--;
-		}
+		reverse_rotate_a(stack_a);
+		reverse_rotate_a(stack_a);
+		push_b(stack_a, stack_b);
 	}
+	else if (smallest_idx == 4)
+	{
+		reverse_rotate_a(stack_a);
+		push_b(stack_a, stack_b);
+	}
+	smallest_idx = find_smallest_idx(stack_a);
+	if (smallest_idx == 0)
+		push_b(stack_a, stack_b);
+	else if (smallest_idx == 1)
+	{
+		swap_a(stack_a);
+		push_b(stack_a, stack_b);
+	}
+	else if (smallest_idx == 2)
+	{
+		rotate_a(stack_a);
+		rotate_a(stack_a);
+		push_b(stack_a, stack_b);
+	}
+	else if (smallest_idx == 3)
+	{
+		reverse_rotate_a(stack_a);
+		push_b(stack_a, stack_b);
+	}
+	sort_3(stack_a);
+	push_a(stack_a, stack_b);
+	push_a(stack_a, stack_b);
 }
 
 int	main(int argc, char **argv)
@@ -140,8 +190,10 @@ int	main(int argc, char **argv)
 		sort_2(&stack_a);
 	else if (stack_size == 3)
 		sort_3(&stack_a);
-	else if (stack_size <= 5)
-		sort_5(&stack_a, &stack_b);
+	else if (stack_size == 4)
+		sort_4(&stack_a, &stack_b);
+	else if (stack_size == 5)
+		sort_5_2(&stack_a, &stack_b);
 	// system("leaks push_swap");
 	return (0);
 }
