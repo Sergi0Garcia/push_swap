@@ -6,7 +6,7 @@
 #    By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 13:08:18 by segarcia          #+#    #+#              #
-#    Updated: 2022/10/26 09:34:17 by segarcia         ###   ########.fr        #
+#    Updated: 2022/10/26 13:02:27 by segarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC			= 	./src/main.c						\
 				./src/sorting/sort_3.c 				\
 				./src/sorting/sort_4.c 				\
 				./src/sorting/sort_5.c 				\
+				./src/sorting/sort_big.c 			\
 				./src/utils/atoi_checker.c			\
 				./src/utils/error.c					\
 				./src/utils/list_utils_2.c			\

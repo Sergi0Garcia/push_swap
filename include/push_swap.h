@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 13:18:27 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/26 09:30:52 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/26 13:02:29 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 typedef struct s_node
 {
 	int				value;
+	int				index;
 	struct s_node	*next;
 }					t_node;
 
@@ -32,6 +33,7 @@ int		ft_atoi_checker(const char *str);
 void	exit_error(void);
 int		is_stack_ordered(t_node *stack);
 int		find_smallest_idx(t_node **stack);
+void	set_index_to_list(t_node **stack_a);
 int		ft_lst_size(t_node *lst);
 t_node	*ft_new_node(int value);
 void	ft_print_list(t_node *lst);
@@ -57,5 +59,5 @@ void	sort_2(t_node **stack_a);
 void	sort_3(t_node **stack_a);
 void	sort_4(t_node **stack_a, t_node **stack_b);
 void	sort_5(t_node **stack_a, t_node **stack_b);
-
+void	sort_big(t_node **stack_a, t_node **stack_b);
 #endif
