@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 13:18:27 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/25 14:26:49 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/26 09:30:52 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../libft/libft.h"
 # include "../libft/ft_printf/include/ft_printf.h"
 # include <signal.h>
+# include <stdio.h>
 
 typedef struct s_node
 {
@@ -23,15 +24,19 @@ typedef struct s_node
 	struct s_node	*next;
 }					t_node;
 
-void	exit_error(void);
-int		is_stack_ordered(t_node *stack);
-int		ft_atoi_checker(const char *str);
+// ---------- init ---------- //
 void	save_into_stack(t_node **stack, int value);
 void	parse_input(char **argv, t_node **stack_a);
+// ---------- utils ---------- //
+int		ft_atoi_checker(const char *str);
+void	exit_error(void);
+int		is_stack_ordered(t_node *stack);
+int		find_smallest_idx(t_node **stack);
 int		ft_lst_size(t_node *lst);
 t_node	*ft_new_node(int value);
 void	ft_print_list(t_node *lst);
 t_node	*ft_last_node(t_node *lst);
+// ---------- instructions ---------- //
 void	swap(t_node **stack);
 void	push(t_node **origin, t_node **destination);
 void	rotate(t_node **stack);
@@ -47,5 +52,10 @@ void	reverse_rotate_ab(t_node **stack_a, t_node **stack_b);
 void	swap_a(t_node **stack_a);
 void	swap_b(t_node **stack_b);
 void	swap_ab(t_node **stack_a, t_node **stack_b);
+// ---------- sorting ---------- //
+void	sort_2(t_node **stack_a);
+void	sort_3(t_node **stack_a);
+void	sort_4(t_node **stack_a, t_node **stack_b);
+void	sort_5(t_node **stack_a, t_node **stack_b);
 
 #endif

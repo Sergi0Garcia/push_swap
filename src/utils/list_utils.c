@@ -6,11 +6,11 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 10:42:21 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/25 10:08:23 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/26 09:30:49 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/push_swap.h"
+#include "../../include/push_swap.h"
 
 int	ft_lst_size(t_node *lst)
 {

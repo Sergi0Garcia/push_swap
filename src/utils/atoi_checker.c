@@ -6,11 +6,11 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 09:32:33 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/19 09:36:15 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/26 09:08:08 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/push_swap.h"
+#include "../../include/push_swap.h"
 
 static void	check_max(long long int num)
 {

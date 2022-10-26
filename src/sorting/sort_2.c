@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   sort_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 09:30:11 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/19 13:22:12 by segarcia         ###   ########.fr       */
+/*   Created: 2022/10/26 09:05:21 by segarcia          #+#    #+#             */
+/*   Updated: 2022/10/26 09:37:44 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/push_swap.h"
+#include "../../include/push_swap.h"
 
-void	exit_error(void)
+void	sort_2(t_node **stack_a)
 {
-	ft_printf("Error\n");
-	exit(EXIT_FAILURE);
+	if ((*stack_a)->value > (*stack_a)->next->value)
+		swap_a(stack_a);
 }
