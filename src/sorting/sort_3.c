@@ -6,11 +6,19 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 09:06:39 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/26 13:32:44 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/28 13:48:08 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/push_swap.h"
+
+// static void	print_a(t_node *stack_a)
+// {
+// 	ft_printf("---------\n");
+// 	ft_printf("--- a ---\n");
+// 	ft_print_list(stack_a);
+// 	ft_printf("---------\n");
+// }
 
 void	sort_3(t_node **stack_a)
 {
