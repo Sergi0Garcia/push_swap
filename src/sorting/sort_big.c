@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 12:39:16 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/29 19:45:21 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/30 12:54:23 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,10 @@ static int	init_piles_b(t_node **stack_a, t_node **stack_b, int max_len)
 		minimum_idx = get_minimum_index_from_pile(stack_b, total_count);
 		// ft_printf("middle_point: %i\n", middle_point);
 		// ft_printf("minimum_idx: %i\n", minimum_idx);
-		while ((pushs + rotations) <= (total_count - (middle_point - minimum_idx)))
+		while ((pushs + rotations) <= (total_count))
 		{
 			// ft_printf("here\n");
-			if ((*stack_b)->index > middle_point)
+			if ((*stack_b)->index >= middle_point)
 			{
 				push_a(stack_a, stack_b);
 				total_count--;
@@ -147,12 +147,16 @@ static int	init_piles_b(t_node **stack_a, t_node **stack_b, int max_len)
 			rotations--;
 		}
 		iterations++;
+		pushs = 0;
 		// ft_printf("pushs: %i\n", pushs);
 		// ft_printf("rotations: %i\n", rotations);
 		// ft_printf("max_len: %i\n", max_len);
+		// ft_printf("total_count: %i\n", total_count);
 	}
-	if ((*stack_b)->index < (*stack_b)->next->index)
-		swap_b(stack_b);
+	// ft_printf("END OF init_piles_b\n");
+	if (ft_lst_size(*stack_b) > 1)
+		if ((*stack_b)->index < (*stack_b)->next->index)
+			swap_b(stack_b);
 	// print_ab(*stack_a, *stack_b);
 	// ft_printf("iterations init piles b: %i\n", iterations);
 	return (iterations);
@@ -209,6 +213,22 @@ static int	init_piles_b(t_node **stack_a, t_node **stack_b, int max_len)
 // 	return (iterations);
 // }
 
+static int is_3_sorted_descending(t_node **stack)
+{
+	int first;
+	int second;
+	int third;
+
+	first = (*stack)->index;
+	second = (*stack)->next->index;
+	third = (*stack)->next->next->index;
+
+	if (first > second && second > third && third < first)
+		return (1);
+	else
+		return (0);
+}
+
 static void middle_point_a(t_node **stack_a, t_node **stack_b, int pile_len)
 {
 	// int number_of_piles_in_a;
@@ -225,20 +245,23 @@ static void middle_point_a(t_node **stack_a, t_node **stack_b, int pile_len)
 		push_b(stack_a, stack_b);
 		push_b(stack_a, stack_b);
 	}
-	// else
-	// {
-	// 	number_of_piles_in_a = init_piles_a(stack_a, stack_b, pile_len);
-	// 	while (iterations < number_of_piles_in_a)
-	// 	{
-	// 		middle_point_b(stack_a, stack_b, get_pile_len(pile_len, number_of_piles_in_a, iterations, 0));
-	// 		iterations++;
-	// 	}
-	// 	while (pile_len > 0)
-	// 	{
-	// 		push_b(stack_a, stack_b);
-	// 		pile_len--;
-	// 	}
-	// }
+	else
+	{
+		return ;
+		// number_of_piles_in_a = init_piles_a(stack_a, stack_b, pile_len);
+		// ft_printf("number_of_piles_in_a: %i\n", number_of_piles_in_a);
+		// return ;
+		// while (iterations < number_of_piles_in_a)
+		// {
+		// 	// middle_point_b(stack_a, stack_b, get_pile_len(pile_len, number_of_piles_in_a, iterations, 0));
+		// 	iterations++;
+		// }
+		// while (pile_len > 0)
+		// {
+		// 	push_b(stack_a, stack_b);
+		// 	pile_len--;
+		// }
+	}
 }
 
 
@@ -246,9 +269,13 @@ static void middle_point_b(t_node **stack_a, t_node **stack_b, int pile_len)
 {
 	int number_of_piles_in_a;
 	int iterations;
+	int is_odd;
 
 	iterations = 0;
-	// ft_printf("individual pile len: %i\n", pile_len);
+	is_odd = 1;
+	if (pile_len % 2 == 0)
+		is_odd = 0;
+	// ft_printf("individual pile len in middle point b: %i\n", pile_len);
 	if (pile_len == 1)
 		push_a(stack_a, stack_b);
 	else if (pile_len == 2)
@@ -260,11 +287,22 @@ static void middle_point_b(t_node **stack_a, t_node **stack_b, int pile_len)
 	}
 	else
 	{
+		if (pile_len == 3 && (is_3_sorted_descending(stack_b)))
+		{
+			push_a(stack_a, stack_b);
+			push_a(stack_a, stack_b);
+			push_a(stack_a, stack_b);
+			return ;
+		}
 		number_of_piles_in_a = init_piles_b(stack_a, stack_b, pile_len);
 		// ft_printf("number_of_piles_in_a: %i\n",  number_of_piles_in_a);
 		while (iterations < number_of_piles_in_a)
 		{
-			middle_point_a(stack_a, stack_b, get_pile_len(pile_len, number_of_piles_in_a, iterations, 0));
+			// ft_printf("XX_pile_len: %i\n", pile_len);
+			// ft_printf("XX_number_of_piles_in_a: %i\n", number_of_piles_in_a);
+			// ft_printf("XX_iterations: %i\n", iterations);
+			// ft_printf("XX_is_odd: %i\n", is_odd);
+			middle_point_a(stack_a, stack_b, get_pile_len(pile_len, number_of_piles_in_a, iterations, is_odd));
 			iterations++;
 		}
 		while (pile_len > 0)
