@@ -6,21 +6,21 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 12:39:16 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/30 16:26:37 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/30 17:27:03 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/push_swap.h"
 
-// static void	print_ab(t_node *stack_a, t_node *stack_b)
-// {
-// 	ft_printf("---------\n");
-// 	ft_printf("--- a ---\n");
-// 	ft_print_list(stack_a);
-// 	ft_printf("--- b ---\n");
-// 	ft_print_list(stack_b);
-// 	ft_printf("---------\n");
-// }
+static void	print_ab(t_node *stack_a, t_node *stack_b)
+{
+	ft_printf("---------\n");
+	ft_printf("--- a ---\n");
+	ft_print_list(stack_a);
+	ft_printf("--- b ---\n");
+	ft_print_list(stack_b);
+	ft_printf("---------\n");
+}
 
 int get_minimum_index_from_pile(t_node **stack, int pile_len)
 {
@@ -90,6 +90,8 @@ static int	init_piles(t_node **stack_a, t_node **stack_b)
 	return (iterations);
 }
 
+// TODO CHECK PILE LEN
+// IT IS NOT WORKING
 static int get_pile_len(int max_size, int max_piles, int iterations)
 {
 	int i;
@@ -102,8 +104,10 @@ static int get_pile_len(int max_size, int max_piles, int iterations)
 	{
 		start = res;
 		res /= 2;
-		if ((start != 3 && iterations == 0) && (start - (res * 2)) > 0)
+		if ((start != 3) && (start - (res * 2)) > 0)
 			res++;
+		if (iterations == 0 && (max_size % 2 != 0) && (max_size != 3))
+			res--;
 		i++;
 	}
 	return (res);
@@ -126,8 +130,8 @@ static int	init_piles_b(t_node **stack_a, t_node **stack_b, int max_len, int is_
 	{
 		middle_point = get_middle_point_index(stack_b, total_count);
 		minimum_idx = get_minimum_index_from_pile(stack_b, total_count);
-		// ft_printf("middle_point: %i\n", middle_point);
-		// ft_printf("minimum_idx: %i\n", minimum_idx);
+		ft_printf("middle_point: %i\n", middle_point);
+		ft_printf("minimum_idx: %i\n", minimum_idx);
 		while ((pushs + rotations) <= (total_count))
 		{
 			// ft_printf("here\n");
@@ -160,61 +164,63 @@ static int	init_piles_b(t_node **stack_a, t_node **stack_b, int max_len, int is_
 	if (ft_lst_size(*stack_b) > 1)
 		if ((*stack_b)->index < (*stack_b)->next->index)
 			swap_b(stack_b);
-	// print_ab(*stack_a, *stack_b);
-	// ft_printf("iterations init piles b: %i\n", iterations);
+	print_ab(*stack_a, *stack_b);
+	ft_printf("iterations init piles b: %i\n", iterations);
 	return (iterations);
 }
 
-// static int	init_piles_a(t_node **stack_a, t_node **stack_b, int max_len)
-// {
-// 	int middle_point;
-// 	int minimum_idx;
-// 	int iterations;
-// 	int pushs;
-// 	int rotations;
-// 	int total_count;
+static int	init_piles_a(t_node **stack_a, t_node **stack_b, int max_len)
+{
+	int middle_point;
+	int minimum_idx;
+	int iterations;
+	int pushs;
+	int rotations;
+	int total_count;
 
-// 	iterations = 0;
-// 	pushs = 0;
-// 	rotations = 0;
-// 	total_count = max_len;
-// 	while (total_count >= 3)
-// 	{
-// 		middle_point = get_middle_point_index(stack_a, total_count);
-// 		minimum_idx = get_minimum_index_from_pile(stack_a, total_count);
-// 		// ft_printf("middle_point: %i\n", middle_point);
-// 		// ft_printf("minimum_idx: %i\n", minimum_idx);
-// 		while ((pushs + rotations) <= (total_count - (middle_point - minimum_idx)))
-// 		{
-// 			// ft_printf("here\n");
-// 			if ((*stack_a)->index > middle_point)
-// 			{
-// 				push_b(stack_a, stack_b);
-// 				total_count--;
-// 				pushs++;
-// 			}
-// 			else
-// 			{
-// 				rotate_a(stack_a);
-// 				rotations++;
-// 			}
-// 		}
-// 		while (rotations > 0)
-// 		{
-// 			reverse_rotate_a(stack_a);
-// 			rotations--;
-// 		}
-// 		iterations++;
-// 		// ft_printf("pushs: %i\n", pushs);
-// 		// ft_printf("rotations: %i\n", rotations);
-// 		// ft_printf("max_len: %i\n", max_len);
-// 	}
-// 	if ((*stack_a)->index < (*stack_a)->next->index)
-// 		swap_a(stack_b);
-// 	// print_ab(*stack_a, *stack_b);
-// 	// ft_printf("iterations init piles b: %i\n", iterations);
-// 	return (iterations);
-// }
+	iterations = 0;
+	pushs = 0;
+	rotations = 0;
+	total_count = max_len;
+	while (total_count >= 3)
+	{
+		middle_point = get_middle_point_index(stack_a, total_count);
+		minimum_idx = get_minimum_index_from_pile(stack_a, total_count);
+		ft_printf("middle_point: %i\n", middle_point);
+		ft_printf("minimum_idx: %i\n", minimum_idx);
+		while ((pushs + rotations) <= (total_count))
+		{
+			// ft_printf("here\n");
+			if ((*stack_a)->index > middle_point)
+			{
+				push_b(stack_a, stack_b);
+				total_count--;
+				pushs++;
+			}
+			else
+			{
+				rotate_a(stack_a);
+				rotations++;
+			}
+		}
+		while (rotations > 0)
+		{
+			reverse_rotate_a(stack_a);
+			rotations--;
+		}
+		iterations++;
+		pushs = 0;
+		// ft_printf("pushs: %i\n", pushs);
+		// ft_printf("rotations: %i\n", rotations);
+		// ft_printf("max_len: %i\n", max_len);
+	}
+	if (ft_lst_size(*stack_a) > 1)
+		if ((*stack_a)->index < (*stack_a)->next->index)
+			swap_a(stack_a);
+	print_ab(*stack_a, *stack_b);
+	ft_printf("iterations init piles b: %i\n", iterations);
+	return (iterations);
+}
 
 static int is_3_sorted_descending(t_node **stack)
 {
@@ -232,44 +238,44 @@ static int is_3_sorted_descending(t_node **stack)
 		return (0);
 }
 
-static void middle_point_a(t_node **stack_a, t_node **stack_b, int pile_len)
-{
-	// int number_of_piles_in_a;
-	int iterations;
+// static void middle_point_a(t_node **stack_a, t_node **stack_b, int pile_len)
+// {
+// 	// int number_of_piles_in_a;
+// 	int iterations;
 
-	// print_ab(*stack_a, *stack_b);
-	iterations = 0;
-	// ft_printf("individual pile len A: %i\n", pile_len);
-	if (pile_len == 1)
-		push_b(stack_a, stack_b);
-	else if (pile_len == 2)
-	{
-		if ((*stack_a)->index > (*stack_a)->next->index)
-			swap_a(stack_a);
-		push_b(stack_a, stack_b);
-		push_b(stack_a, stack_b);
-		// ft_printf("------ x ------");
-		// print_ab(*stack_a, *stack_b);
-	}
-	else
-	{
-		printf("SIGKILLNXXX\n");
-		return ;
-		// number_of_piles_in_a = init_piles_a(stack_a, stack_b, pile_len);
-		// ft_printf("number_of_piles_in_a: %i\n", number_of_piles_in_a);
-		// return ;
-		// while (iterations < number_of_piles_in_a)
-		// {
-		// 	// middle_point_b(stack_a, stack_b, get_pile_len(pile_len, number_of_piles_in_a, iterations, 0));
-		// 	iterations++;
-		// }
-		// while (pile_len > 0)
-		// {
-		// 	push_b(stack_a, stack_b);
-		// 	pile_len--;
-		// }
-	}
-}
+// 	// print_ab(*stack_a, *stack_b);
+// 	iterations = 0;
+// 	// ft_printf("individual pile len A: %i\n", pile_len);
+// 	if (pile_len == 1)
+// 		push_b(stack_a, stack_b);
+// 	else if (pile_len == 2)
+// 	{
+// 		if ((*stack_a)->index > (*stack_a)->next->index)
+// 			swap_a(stack_a);
+// 		push_b(stack_a, stack_b);
+// 		push_b(stack_a, stack_b);
+// 		// ft_printf("------ x ------");
+// 		// print_ab(*stack_a, *stack_b);
+// 	}
+// 	else
+// 	{
+// 		printf("SIGKILLNXXX\n");
+// 		return ;
+// 		// number_of_piles_in_a = init_piles_a(stack_a, stack_b, pile_len);
+// 		// ft_printf("number_of_piles_in_a: %i\n", number_of_piles_in_a);
+// 		// return ;
+// 		// while (iterations < number_of_piles_in_a)
+// 		// {
+// 		// 	// middle_point_b(stack_a, stack_b, get_pile_len(pile_len, number_of_piles_in_a, iterations, 0));
+// 		// 	iterations++;
+// 		// }
+// 		// while (pile_len > 0)
+// 		// {
+// 		// 	push_b(stack_a, stack_b);
+// 		// 	pile_len--;
+// 		// }
+// 	}
+// }
 
 
 static void middle_point_b(t_node **stack_a, t_node **stack_b, int pile_len)
@@ -282,7 +288,8 @@ static void middle_point_b(t_node **stack_a, t_node **stack_b, int pile_len)
 	is_even = 0;
 	if (pile_len % 2 == 0)
 		is_even = 1;
-	// ft_printf("individual pile len in middle point b: %i\n", pile_len);
+	print_ab(*stack_a, *stack_b);
+	ft_printf("individual pile len in middle point b: %i\n", pile_len);
 	if (pile_len == 1)
 		push_a(stack_a, stack_b);
 	else if (pile_len == 2)
@@ -311,7 +318,43 @@ static void middle_point_b(t_node **stack_a, t_node **stack_b, int pile_len)
 			// ft_printf("XX_iterations: %i\n", iterations);
 			// ft_printf("XX_is_odd: %i\n", is_odd);
 			// print_ab(*stack_a, *stack_b);
-			middle_point_a(stack_a, stack_b, get_pile_len(pile_len, number_of_piles_in_a, iterations));
+			// middle_point_a(stack_a, stack_b, get_pile_len(pile_len, number_of_piles_in_a, iterations));
+			int pile_len_x;
+			int number_of_piles_in_a_x;
+			int iterations_x;
+			iterations_x = 0;
+			ft_printf("[xx] pile_len: %i\n", pile_len);
+			ft_printf("[xx] number_of_piles_in_a: %i\n", number_of_piles_in_a);
+			ft_printf("[xx] iterations: %i\n", iterations);
+			pile_len_x =  get_pile_len(pile_len, number_of_piles_in_a, iterations);
+			ft_printf("pile_len_x: %i\n", pile_len_x);
+			if (pile_len_x == 1)
+				push_b(stack_a, stack_b);
+			else if (pile_len_x == 2)
+			{
+				if ((*stack_a)->index > (*stack_a)->next->index)
+					swap_a(stack_a);
+				push_b(stack_a, stack_b);
+				push_b(stack_a, stack_b);
+				// ft_printf("------ x ------");
+				// print_ab(*stack_a, *stack_b);
+			}
+			else
+			{
+				number_of_piles_in_a_x = init_piles_a(stack_a, stack_b, pile_len_x);
+				while (iterations_x < number_of_piles_in_a_x)
+				{
+					middle_point_b(stack_a, stack_b, get_pile_len(pile_len_x, number_of_piles_in_a_x, iterations_x));
+					iterations_x++;
+				}
+				while (pile_len_x > 0)
+				{
+					push_b(stack_a, stack_b);
+					pile_len_x--;
+				}
+			}
+			// END OF INNEER LOOOOP
+			// ------------
 			iterations++;
 		}
 		// print_ab(*stack_a, *stack_b);
@@ -333,18 +376,19 @@ void sort_big(t_node **stack_a, t_node **stack_b)
 	iterations = 0;
 	max_size = ft_lst_size(*stack_a);
 	number_of_piles = init_piles(stack_a, stack_b);
-	// print_ab(*stack_a, *stack_b);
-	// ft_printf("Number of piles init: %i\n",  number_of_piles);
-	// int i = 0;
-	// while(i < number_of_piles)
-	// {
-	// 	ft_printf("Pile[%i]: %i\n", i, get_pile_len(max_size, number_of_piles, i));
-	// 	i++;
-	// }
+	print_ab(*stack_a, *stack_b);
+	ft_printf("Number of piles init: %i\n",  number_of_piles);
+	int i = 0;
+	while(i < number_of_piles)
+	{
+		ft_printf("Pile[%i]: %i\n", i, get_pile_len(max_size, number_of_piles, i));
+		i++;
+	}
+	exit(0);
 	while (iterations < number_of_piles)
 	{
 		middle_point_b(stack_a, stack_b, get_pile_len(max_size, number_of_piles, iterations));
 		iterations++;
 	}
-	// print_ab(*stack_a, *stack_b);
+	print_ab(*stack_a, *stack_b);
 }
