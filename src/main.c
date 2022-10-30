@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:46:01 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/29 13:40:09 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/30 15:11:25 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	main(int argc, char **argv)
 		exit(EXIT_SUCCESS);
 	stack_size = ft_lst_size(stack_a);
 	set_index_to_list(&stack_a);
-	// print_ab(stack_a, stack_b);
 	if (stack_size == 2)
 		sort_2(&stack_a);
 	else if (stack_size == 3)
@@ -49,7 +48,6 @@ int	main(int argc, char **argv)
 		sort_5(&stack_a, &stack_b);
 	else
 		sort_big(&stack_a, &stack_b);
-	// print_ab(stack_a, stack_b);
 	// system("leaks push_swap");
 	return (0);
 }
