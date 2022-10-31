@@ -6,21 +6,21 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 12:39:16 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/31 12:04:19 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/31 12:09:09 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/push_swap.h"
 
-static void	print_ab(t_node *stack_a, t_node *stack_b)
-{
-	ft_printf("---------\n");
-	ft_printf("--- a ---\n");
-	ft_print_list(stack_a);
-	ft_printf("--- b ---\n");
-	ft_print_list(stack_b);
-	ft_printf("---------\n");
-}
+// static void	print_ab(t_node *stack_a, t_node *stack_b)
+// {
+// 	ft_printf("---------\n");
+// 	ft_printf("--- a ---\n");
+// 	ft_print_list(stack_a);
+// 	ft_printf("--- b ---\n");
+// 	ft_print_list(stack_b);
+// 	ft_printf("---------\n");
+// }
 
 int get_minimum_index_from_pile(t_node **stack, int pile_len)
 {
@@ -252,6 +252,22 @@ static int is_3_sorted_descending(t_node **stack)
 		return (0);
 }
 
+static int is_3_sorted_ascending(t_node **stack)
+{
+	int first;
+	int second;
+	int third;
+
+	first = (*stack)->index;
+	second = (*stack)->next->index;
+	third = (*stack)->next->next->index;
+
+	if (first < second && second < third && third > first)
+		return (1);
+	else
+		return (0);
+}
+
 // static void middle_point_a(t_node **stack_a, t_node **stack_b, int pile_len)
 // {
 // 	// int number_of_piles_in_a;
@@ -355,6 +371,13 @@ static void middle_point_b(t_node **stack_a, t_node **stack_b, int pile_len)
 			}
 			else
 			{
+				if (pile_len == 3 && (is_3_sorted_ascending(stack_a)))
+				{
+					push_b(stack_a, stack_b);
+					push_b(stack_a, stack_b);
+					push_b(stack_a, stack_b);
+					return ;
+				}
 				number_of_piles_in_a_x = init_piles_a(stack_a, stack_b, pile_len_x);
 				while (iterations_x < number_of_piles_in_a_x)
 				{
@@ -403,5 +426,5 @@ void sort_big(t_node **stack_a, t_node **stack_b)
 		middle_point_b(stack_a, stack_b, get_pile_len(max_size, number_of_piles, iterations));
 		iterations++;
 	}
-	print_ab(*stack_a, *stack_b);
+	// print_ab(*stack_a, *stack_b);
 }
