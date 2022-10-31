@@ -6,22 +6,12 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:46:01 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/30 15:11:25 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/31 12:49:45 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 #include <stdio.h>
-
-// static void	print_ab(t_node *stack_a, t_node *stack_b)
-// {
-// 	ft_printf("---------\n");
-// 	ft_printf("--- a ---\n");
-// 	ft_print_list(stack_a);
-// 	ft_printf("--- b ---\n");
-// 	ft_print_list(stack_b);
-// 	ft_printf("---------\n");
-// }
 
 int	main(int argc, char **argv)
 {

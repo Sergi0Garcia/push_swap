@@ -6,21 +6,11 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 12:39:16 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/31 12:17:32 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/31 13:58:29 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/push_swap.h"
-
-// static void	print_ab(t_node *stack_a, t_node *stack_b)
-// {
-// 	ft_printf("---------\n");
-// 	ft_printf("--- a ---\n");
-// 	ft_print_list(stack_a);
-// 	ft_printf("--- b ---\n");
-// 	ft_print_list(stack_b);
-// 	ft_printf("---------\n");
-// }
 
 int get_minimum_index_from_pile(t_node **stack, int pile_len)
 {
@@ -60,7 +50,7 @@ static int	init_piles(t_node **stack_a, t_node **stack_b)
 	int max_len;
 
 	iterations = 0;
-	while (ft_lst_size(*stack_a) >= 3)
+	while (ft_lst_size(*stack_a) >= 3 || !is_stack_ordered(*stack_a))
 	{
 		max_len = ft_lst_size(*stack_a);
 		middle_point = get_middle_point_index(stack_a, max_len);
@@ -209,36 +199,38 @@ static int	init_piles_a(t_node **stack_a, t_node **stack_b, int max_len)
 	return (iterations);
 }
 
-static int is_3_sorted_descending(t_node **stack)
+static int is_3_sorted_descending(t_node **stack, int len)
 {
-	int first;
-	int second;
-	int third;
+	t_node *tmp;
+	int 	i;
 
-	first = (*stack)->index;
-	second = (*stack)->next->index;
-	third = (*stack)->next->next->index;
-
-	if (first > second && second > third && third < first)
-		return (1);
-	else
-		return (0);
+	i = 0;
+	tmp = *stack;
+	while (tmp && tmp->next && i < len)
+	{
+		if (tmp->value < tmp->next->value)
+			return (0);
+		tmp = tmp->next;
+		i++;
+	}
+	return (1);
 }
 
-static int is_3_sorted_ascending(t_node **stack)
+static int is_3_sorted_ascending(t_node **stack, int len)
 {
-	int first;
-	int second;
-	int third;
+	t_node *tmp;
+	int 	i;
 
-	first = (*stack)->index;
-	second = (*stack)->next->index;
-	third = (*stack)->next->next->index;
-
-	if (first < second && second < third && third > first)
-		return (1);
-	else
-		return (0);
+	i = 0;
+	tmp = *stack;
+	while (tmp && tmp->next && i < len)
+	{
+		if (tmp->value > tmp->next->value)
+			return (0);
+		tmp = tmp->next;
+		i++;
+	}
+	return (1);
 }
 
 static void middle_point_b(t_node **stack_a, t_node **stack_b, int pile_len)
@@ -247,6 +239,7 @@ static void middle_point_b(t_node **stack_a, t_node **stack_b, int pile_len)
 	int iterations;
 	int is_even;
 
+	// print_ab(*stack_a, *stack_b);
 	iterations = 0;
 	is_even = 0;
 	if (pile_len % 2 == 0)
@@ -262,16 +255,19 @@ static void middle_point_b(t_node **stack_a, t_node **stack_b, int pile_len)
 	}
 	else
 	{
-		if (pile_len == 3 && (is_3_sorted_descending(stack_b)))
+		if (is_3_sorted_descending(stack_b, pile_len))
 		{
-			push_a(stack_a, stack_b);
-			push_a(stack_a, stack_b);
-			push_a(stack_a, stack_b);
+			while (pile_len > 0)
+			{
+				push_a(stack_a, stack_b);
+				pile_len--;
+			}
 			return ;
 		}
 		number_of_piles_in_a = init_piles_b(stack_a, stack_b, pile_len, is_even);
 		while (iterations < number_of_piles_in_a)
 		{
+			// print_ab(*stack_a, *stack_b);
 			// START OF INNEER LOOOOP
 			// ------------
 			// middle_point_a(stack_a, stack_b, get_pile_len(pile_len, number_of_piles_in_a, iterations));
@@ -280,7 +276,7 @@ static void middle_point_b(t_node **stack_a, t_node **stack_b, int pile_len)
 			int iterations_x;
 			iterations_x = 0;
 			pile_len_x =  get_pile_len(pile_len, number_of_piles_in_a, iterations);
-			if (pile_len_x == 1)
+			if (pile_len_x == 1 )
 				push_b(stack_a, stack_b);
 			else if (pile_len_x == 2)
 			{
@@ -291,11 +287,13 @@ static void middle_point_b(t_node **stack_a, t_node **stack_b, int pile_len)
 			}
 			else
 			{
-				if (pile_len == 3 && (is_3_sorted_ascending(stack_a)))
+				if (pile_len == 3 && (is_3_sorted_ascending(stack_a, pile_len)))
 				{
-					push_b(stack_a, stack_b);
-					push_b(stack_a, stack_b);
-					push_b(stack_a, stack_b);
+					while (pile_len > 0)
+					{
+						push_b(stack_a, stack_b);
+						pile_len--;
+					}
 					return ;
 				}
 				number_of_piles_in_a_x = init_piles_a(stack_a, stack_b, pile_len_x);

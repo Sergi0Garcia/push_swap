@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 13:18:27 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/26 13:02:29 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/10/31 12:49:16 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	parse_input(char **argv, t_node **stack_a);
 int		ft_atoi_checker(const char *str);
 void	exit_error(void);
 int		is_stack_ordered(t_node *stack);
+void	print_ab(t_node *stack_a, t_node *stack_b);
 int		find_smallest_idx(t_node **stack);
 void	set_index_to_list(t_node **stack_a);
 int		ft_lst_size(t_node *lst);
