@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 12:39:16 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/31 13:58:29 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/11/10 10:54:22 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static int	init_piles(t_node **stack_a, t_node **stack_b)
 		minimum_idx = get_minimum_index_from_pile(stack_a, max_len);
 		while (ft_lst_size(*stack_a) > (max_len - (middle_point - minimum_idx)))
 		{
+			// print_ab(*stack_a , *stack_b);
 			if ((*stack_a)->index < middle_point)
 				push_b(stack_a, stack_b);
 			else
@@ -216,6 +217,23 @@ static int is_3_sorted_descending(t_node **stack, int len)
 	return (1);
 }
 
+static int is_strict_sorted_ascending(t_node **stack, int len)
+{
+	t_node *tmp;
+	int 	i;
+
+	i = 0;
+	tmp = *stack;
+	while (tmp && tmp->next && i < len)
+	{
+		if (tmp->index + 1 != tmp->next->index)
+			return (0);
+		tmp = tmp->next;
+		i++;
+	}
+	return (1);
+}
+
 static int is_3_sorted_ascending(t_node **stack, int len)
 {
 	t_node *tmp;
@@ -225,7 +243,7 @@ static int is_3_sorted_ascending(t_node **stack, int len)
 	tmp = *stack;
 	while (tmp && tmp->next && i < len)
 	{
-		if (tmp->value > tmp->next->value)
+		if (tmp->index > tmp->next->index)
 			return (0);
 		tmp = tmp->next;
 		i++;
@@ -233,12 +251,16 @@ static int is_3_sorted_ascending(t_node **stack, int len)
 	return (1);
 }
 
+
+
 static void middle_point_b(t_node **stack_a, t_node **stack_b, int pile_len)
 {
 	int number_of_piles_in_a;
 	int iterations;
 	int is_even;
+	int opt;
 
+	opt = 0;
 	// print_ab(*stack_a, *stack_b);
 	iterations = 0;
 	is_even = 0;
@@ -265,25 +287,42 @@ static void middle_point_b(t_node **stack_a, t_node **stack_b, int pile_len)
 			return ;
 		}
 		number_of_piles_in_a = init_piles_b(stack_a, stack_b, pile_len, is_even);
+		// printf("number_of_piles_in_a: %i\n", number_of_piles_in_a);
 		while (iterations < number_of_piles_in_a)
 		{
 			// print_ab(*stack_a, *stack_b);
 			// START OF INNEER LOOOOP
 			// ------------
 			// middle_point_a(stack_a, stack_b, get_pile_len(pile_len, number_of_piles_in_a, iterations));
+			// printf("Starting Inner loop\n");
+			// print_ab(*stack_a, *stack_b);
 			int pile_len_x;
 			int number_of_piles_in_a_x;
 			int iterations_x;
 			iterations_x = 0;
 			pile_len_x =  get_pile_len(pile_len, number_of_piles_in_a, iterations);
-			if (pile_len_x == 1 )
-				push_b(stack_a, stack_b);
+			// printf("pile_len: %i\n", pile_len);
+			// printf("pile_len_x: %i\n", pile_len_x);
+			if (pile_len_x == 1)
+			{
+				if (is_strict_sorted_ascending(stack_a, ft_lst_size(*stack_a)))
+					opt = 1;
+				else
+					push_b(stack_a, stack_b);
+			}
 			else if (pile_len_x == 2)
 			{
 				if ((*stack_a)->index > (*stack_a)->next->index)
 					swap_a(stack_a);
-				push_b(stack_a, stack_b);
-				push_b(stack_a, stack_b);
+				if (is_strict_sorted_ascending(stack_a, ft_lst_size(*stack_a)))
+				{
+					opt = 2;
+				}
+				else
+				{
+					push_b(stack_a, stack_b);
+					push_b(stack_a, stack_b);
+				}
 			}
 			else
 			{
@@ -297,6 +336,7 @@ static void middle_point_b(t_node **stack_a, t_node **stack_b, int pile_len)
 					return ;
 				}
 				number_of_piles_in_a_x = init_piles_a(stack_a, stack_b, pile_len_x);
+				// printf("number_of_piles_in_a_x: %i\n", number_of_piles_in_a_x);
 				while (iterations_x < number_of_piles_in_a_x)
 				{
 					middle_point_b(stack_a, stack_b, get_pile_len(pile_len_x, number_of_piles_in_a_x, iterations_x));
@@ -312,7 +352,8 @@ static void middle_point_b(t_node **stack_a, t_node **stack_b, int pile_len)
 			// ------------
 			iterations++;
 		}
-		while (pile_len > 0)
+		// print_ab(*stack_a, *stack_b);
+		while (pile_len - opt > 0)
 		{
 			push_a(stack_a, stack_b);
 			pile_len--;
@@ -329,9 +370,17 @@ void sort_big(t_node **stack_a, t_node **stack_b)
 	iterations = 0;
 	max_size = ft_lst_size(*stack_a);
 	number_of_piles = init_piles(stack_a, stack_b);
+	// int i;
+	// i = 0;
+	// while (i < number_of_piles)
+	// {
+	// 	ft_printf("I[%i]- L[%i]\n", i, get_pile_len(max_size, number_of_piles, i));
+	// 	i++;
+	// }
 	while (iterations < number_of_piles)
 	{
 		middle_point_b(stack_a, stack_b, get_pile_len(max_size, number_of_piles, iterations));
 		iterations++;
 	}
+    // print_ab(*stack_a, *stack_b);
 }
