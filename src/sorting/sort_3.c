@@ -6,20 +6,17 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 09:06:39 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/29 18:11:59 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/11/12 19:32:25 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/push_swap.h"
 
-// static void	print_a(t_node *stack_a)
-// {
-// 	ft_printf("---------\n");
-// 	ft_printf("--- a ---\n");
-// 	ft_print_list(stack_a);
-// 	ft_printf("---------\n");
-// }
-
+/**
+ * Func to sort 3 numbers
+ * Manually checking all combinations for performance
+ * @param stack_a
+ */
 void	sort_3(t_node **stack_a)
 {
 	int		first;

@@ -6,12 +6,18 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 09:24:00 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/26 09:38:11 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/11/12 19:32:28 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/push_swap.h"
 
+/**
+ * Func to sort 4 numbers
+ * Manually checking all combinations for performance
+ * @param stack_a
+ * @param stack_b
+ */
 void	sort_4(t_node **stack_a, t_node **stack_b)
 {
 	int	smallest_idx;
