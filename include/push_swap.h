@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 13:18:27 by segarcia          #+#    #+#             */
-/*   Updated: 2022/11/12 21:50:11 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/11/12 22:34:37 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,10 @@ typedef struct s_node
 	struct s_node	*next;
 }					t_node;
 
-typedef struct	s_mp_crtrl
-{
-	int	iterations;
-	int piles_len;
-	int next_piles;
-}				t_mp_ctrl;
-
 // ---------- init ---------- //
-void	save_into_stack(t_node **stack, int value);
+int		save_into_stack(t_node **stack, int value);
 void	parse_input(char **argv, t_node **stack_a);
+void	free_stacks(t_node **stack_a, t_node **stack_b);
 // ---------- utils ---------- //
 int		ft_atoi_checker(const char *str);
 void	exit_error(void);

@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 12:39:16 by segarcia          #+#    #+#             */
-/*   Updated: 2022/11/12 22:06:18 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/11/12 22:15:56 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,10 @@ int	x_handle_piles_1_2_a(t_node **stack_a, t_node **stack_b, int x_pile_len)
 }
 
 /**
- * Func to correct piles whenever we have a stack but not the last one
- * Since we rotated numbers for splitting chunck we need to get those back
- * We iterate i times to get remaining nums of chunks back again at level position
+ * Func to correct piles
+ * We do it whenever we have a stack but not the last one
+ * Nums were rotated and we need to get those back
+ * Iterate i to get remaining nums of chunks back again at level position
  * @param stack_a
  * @param stack_b
  * @param i
@@ -84,11 +85,11 @@ void	correction_mp(t_node **stack_a, t_node **stack_b, int i, char act_stack)
 /**
  * Middle point function
  * Function were all the magic happens [recursive function]
- * We are going to start handling chunk by chunk from the init split
- * We take the number chunk and decide if we need to split it again or handle small pile
- * If it is small we only push it back again to our pile ASC stack_a
- * When we get to a big chunk with recursion we split it again from stack_b to a and start again process
- * Repeat this process for every chunk and for every stack until all nums are sorted in ASC in stack_a
+ * Start handling chunk by chunk from the init split
+ * Decide if we need to split tile again or handle small pile
+ * If small we only push it back again to our pile ASC stack_a
+ * With big chunks, we split it again from stack_b and repat proccess
+ * Repeat c/chunk until all nums are sorted in ASC in stack_a
  * @param stk_a
  * @param stk_b
  * @param piles_len
@@ -124,11 +125,11 @@ static void	mp(t_node **stk_a, t_node **stk_b, int piles_len)
 /**
  * Main func for big number sorting
  * Using middle point algorithm
- * Step[1] = Get middle point from initial stack
- * Step[2] = Split half to the other stack (ASC(Stack_a)/DESC(stack_b))
- * Step[3] = Repeat same step with remaining parts until having < 3 nums
- * Step[4] = Do the same procedure in recursive way for each chunk in either stack
- * Step[5] = Sort them until you order stack by stack
+ * [1] Get middle point from initial stack
+ * [2] Split half to the other (ASC(Stack_a)/DESC(stack_b))
+ * [3] Repeat same step with remaining parts until having < 3 nums
+ * [4] Do the same procedure in recursive way for each chunk in either stack
+ * [5] Sort them until you order stack by stack
  * @param stack_a
  * @param stack_b
  */
