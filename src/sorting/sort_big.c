@@ -6,13 +6,23 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 12:39:16 by segarcia          #+#    #+#             */
-/*   Updated: 2022/11/12 21:02:52 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/11/12 22:06:18 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/push_swap.h"
 
-void	handle_piles_1_2_b(t_node **stack_a, t_node **stack_b, int pile_len)
+/**
+ * func to handle movements for piles in b
+ * Easy functions to do when having 1 or 2 nums
+ * If we have 1 = We just push it back since we do not need sorting
+ * If we have 2 = We check, sort and push back again
+ * @param stack_a
+ * @param stack_b
+ * @param pile_len
+ * @return int
+ */
+int	handle_piles_1_2_b(t_node **stack_a, t_node **stack_b, int pile_len)
 {
 	if (pile_len == 1)
 		push_a(stack_a, stack_b);
@@ -23,9 +33,20 @@ void	handle_piles_1_2_b(t_node **stack_a, t_node **stack_b, int pile_len)
 		push_a(stack_a, stack_b);
 		push_a(stack_a, stack_b);
 	}
+	return (pile_len);
 }
 
-void	x_handle_piles_1_2_a(t_node **stack_a, t_node **stack_b, int x_pile_len)
+/**
+ * func to handle movements for piles in a
+ * Easy functions to do when having 1 or 2 nums
+ * If we have 1 = We just push it back since we do not need sorting
+ * If we have 2 = We check, sort and push back again
+ * @param stack_a
+ * @param stack_b
+ * @param x_pile_len
+ * @return int
+ */
+int	x_handle_piles_1_2_a(t_node **stack_a, t_node **stack_b, int x_pile_len)
 {
 	if (x_pile_len == 1)
 		push_b(stack_a, stack_b);
@@ -36,8 +57,18 @@ void	x_handle_piles_1_2_a(t_node **stack_a, t_node **stack_b, int x_pile_len)
 		push_b(stack_a, stack_b);
 		push_b(stack_a, stack_b);
 	}
+	return (x_pile_len);
 }
 
+/**
+ * Func to correct piles whenever we have a stack but not the last one
+ * Since we rotated numbers for splitting chunck we need to get those back
+ * We iterate i times to get remaining nums of chunks back again at level position
+ * @param stack_a
+ * @param stack_b
+ * @param i
+ * @param act_stack
+ */
 void	correction_mp(t_node **stack_a, t_node **stack_b, int i, char act_stack)
 {
 	while (i > 0)
@@ -50,46 +81,54 @@ void	correction_mp(t_node **stack_a, t_node **stack_b, int i, char act_stack)
 	}
 }
 
-static void	middle_point(t_node **stack_a, t_node **stack_b, int piles_len)
+/**
+ * Middle point function
+ * Function were all the magic happens [recursive function]
+ * We are going to start handling chunk by chunk from the init split
+ * We take the number chunk and decide if we need to split it again or handle small pile
+ * If it is small we only push it back again to our pile ASC stack_a
+ * When we get to a big chunk with recursion we split it again from stack_b to a and start again process
+ * Repeat this process for every chunk and for every stack until all nums are sorted in ASC in stack_a
+ * @param stk_a
+ * @param stk_b
+ * @param piles_len
+ */
+static void	mp(t_node **stk_a, t_node **stk_b, int piles_len)
 {
-	int	iterations;
-	int	piles_in_a;
-	int	x_pile_len;
-	int	x_piles_in_a;
-	int	x_iterations;
+	int	i;
+	int	xi;
+	int	nxt_pile;
+	int	xpile_len;
+	int	xnxt_pile;
 
-	iterations = 0;
-	if (piles_len == 1 || piles_len == 2)
-		handle_piles_1_2_b(stack_a, stack_b, piles_len);
-	else
+	i = 0;
+	if (handle_piles_1_2_b(stk_a, stk_b, piles_len) > 2)
 	{
-		piles_in_a = init_piles_b(stack_a, stack_b, piles_len);
-		while (iterations < piles_in_a)
+		nxt_pile = init_piles_b(stk_a, stk_b, piles_len);
+		while (++i <= nxt_pile)
 		{
-			x_iterations = 0;
-			x_pile_len = pile_len(piles_len, piles_in_a, iterations);
-			if (x_pile_len == 1 || x_pile_len == 2)
-				x_handle_piles_1_2_a(stack_a, stack_b, x_pile_len);
-			else
+			xi = 0;
+			xpile_len = pile_len(piles_len, nxt_pile, i - 1);
+			if (x_handle_piles_1_2_a(stk_a, stk_b, xpile_len) > 2)
 			{
-				x_piles_in_a = init_piles_a(stack_a, stack_b, x_pile_len);
-				while (x_iterations < x_piles_in_a)
-				{
-					middle_point(stack_a, stack_b,
-						pile_len(x_pile_len, x_piles_in_a, x_iterations));
-					x_iterations++;
-				}
-				correction_mp(stack_a, stack_b, x_pile_len, 'a');
+				xnxt_pile = init_piles_a(stk_a, stk_b, xpile_len);
+				while (++xi <= xnxt_pile)
+					mp(stk_a, stk_b, pile_len(xpile_len, xnxt_pile, xi - 1));
+				correction_mp(stk_a, stk_b, xpile_len, 'a');
 			}
-			iterations++;
 		}
-		correction_mp(stack_a, stack_b, piles_len, 'b');
+		correction_mp(stk_a, stk_b, piles_len, 'b');
 	}
 }
 
 /**
  * Main func for big number sorting
  * Using middle point algorithm
+ * Step[1] = Get middle point from initial stack
+ * Step[2] = Split half to the other stack (ASC(Stack_a)/DESC(stack_b))
+ * Step[3] = Repeat same step with remaining parts until having < 3 nums
+ * Step[4] = Do the same procedure in recursive way for each chunk in either stack
+ * Step[5] = Sort them until you order stack by stack
  * @param stack_a
  * @param stack_b
  */
@@ -106,7 +145,7 @@ void	sort_big(t_node **stack_a, t_node **stack_b)
 	while (iterations < number_of_piles)
 	{
 		piles_len = pile_len(max_size, number_of_piles, iterations);
-		middle_point(stack_a, stack_b, piles_len);
+		mp(stack_a, stack_b, piles_len);
 		iterations++;
 	}
 }
