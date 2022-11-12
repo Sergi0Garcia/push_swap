@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:46:01 by segarcia          #+#    #+#             */
-/*   Updated: 2022/11/12 14:50:06 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/11/12 15:26:46 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(int argc, char **argv)
 		sort_5(&stack_a, &stack_b);
 	else
 		sort_big(&stack_a, &stack_b);
-	// system("leaks push_swap");
 	return (0);
 }
+
+// system("leaks push_swap");

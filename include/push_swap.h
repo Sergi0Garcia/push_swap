@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 13:18:27 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/31 12:49:16 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/11/12 17:27:17 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,14 @@ void	sort_3(t_node **stack_a);
 void	sort_4(t_node **stack_a, t_node **stack_b);
 void	sort_5(t_node **stack_a, t_node **stack_b);
 void	sort_big(t_node **stack_a, t_node **stack_b);
+// ----- sort_big_utils ------ //
+void	init_dispersion(t_node **stack_a, t_node **stack_b, int mp);
+int		init_piles(t_node **stack_a, t_node **stack_b);
+int		init_piles_a(t_node **stack_a, t_node **stack_b, int max_len);
+int		init_piles_b(t_node **stack_a, t_node **stack_b, int max_len);
+int		get_minimum_index_from_pile(t_node **stack, int pile_len);
+int		get_middle_point_index(t_node **stack, int pile_len);
+int		is_strict_sorted_ascending(t_node **stack, int len);
+int		get_pile_len(int max_size, int max_piles, int iterations);
+
 #endif

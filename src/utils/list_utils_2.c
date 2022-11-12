@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 09:11:22 by segarcia          #+#    #+#             */
-/*   Updated: 2022/11/10 13:51:01 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/11/12 15:26:16 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	find_smallest_idx(t_node **stack)
 	return (smallest_index);
 }
 
-int find_smallest_number_no_idx(t_node *stack)
+int	find_smallest_number_no_idx(t_node *stack)
 {
 	int		smallest;
 	t_node	*tmp;
