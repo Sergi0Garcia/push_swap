@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 12:39:16 by segarcia          #+#    #+#             */
-/*   Updated: 2022/11/10 14:04:31 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/11/12 14:52:15 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,6 @@ static int	init_piles_b(t_node **stack_a, t_node **stack_b, int max_len, int is_
 	rotations = 0;
 	total_count = max_len;
 	int finish;
-
 	// ft_printf("total_count: %i\n", total_count);
 	while (total_count >= 3 && ft_lst_size(*stack_b) >= 3)
 	{
@@ -180,6 +179,7 @@ static int	init_piles_b(t_node **stack_a, t_node **stack_b, int max_len, int is_
 	if (ft_lst_size(*stack_b) > 1)
 		if ((*stack_b)->index < (*stack_b)->next->index)
 			swap_b(stack_b);
+	// printf("Endinginit_piles_b\n");
 	return (iterations);
 }
 
@@ -254,23 +254,6 @@ static int is_3_sorted_descending(t_node **stack, int len)
 	return (1);
 }
 
-// static int is_3_sorted_ascending(t_node **stack, int len)
-// {
-// 	t_node *tmp;
-// 	int 	i;
-
-// 	i = 0;
-// 	tmp = *stack;
-// 	while (tmp && tmp->next && i < len)
-// 	{
-// 		if (tmp->index > tmp->next->index)
-// 			return (0);
-// 		tmp = tmp->next;
-// 		i++;
-// 	}
-// 	return (1);
-// }
-
 static void middle_point_b(t_node **stack_a, t_node **stack_b, int pile_len)
 {
 	int number_of_piles_in_a;
@@ -284,6 +267,7 @@ static void middle_point_b(t_node **stack_a, t_node **stack_b, int pile_len)
 	if (pile_len % 2 == 0)
 		is_even = 1;
 	// -------------------
+	// print_ab(*stack_a, *stack_b);
 	if (pile_len == 1)
 		push_a(stack_a, stack_b);
 	else if (pile_len == 2)
@@ -328,7 +312,7 @@ static void middle_point_b(t_node **stack_a, t_node **stack_b, int pile_len)
 			if (pile_len_x == 1)
 			{
 				if (is_strict_sorted_ascending(stack_a, ft_lst_size(*stack_a)))
-					opt = 1;
+					opt +=  pile_len_x;
 				else
 					push_b(stack_a, stack_b);
 			}
@@ -336,7 +320,7 @@ static void middle_point_b(t_node **stack_a, t_node **stack_b, int pile_len)
 			{
 				if (is_strict_sorted_ascending(stack_a, ft_lst_size(*stack_a)))
 				{
-					opt = 2;
+					opt += pile_len_x;
 				}
 				else
 				{
@@ -360,11 +344,13 @@ static void middle_point_b(t_node **stack_a, t_node **stack_b, int pile_len)
 					pile_len_x--;
 				}
 			}
+			// printf("Opt: %i\n", opt);
 			// END OF INNEER LOOOOP
 			// ------------
 			iterations++;
 		}
 		// print_ab(*stack_a, *stack_b);
+		// ft_printf("pile_len: %i\n", pile_len);
 		while (pile_len - opt > 0)
 		{
 			push_a(stack_a, stack_b);
