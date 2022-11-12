@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 12:39:16 by segarcia          #+#    #+#             */
-/*   Updated: 2022/11/12 20:59:01 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/11/12 21:02:52 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,30 +52,22 @@ void	correction_mp(t_node **stack_a, t_node **stack_b, int i, char act_stack)
 
 static void	middle_point(t_node **stack_a, t_node **stack_b, int piles_len)
 {
-	t_mp_ctrl *mp_ctrl;
-	t_mp_ctrl *x_mp_ctrl;
-	// int	iterations;
+	int	iterations;
 	int	piles_in_a;
 	int	x_pile_len;
 	int	x_piles_in_a;
 	int	x_iterations;
 
-	mp_ctrl = (t_mp_ctrl *)malloc(sizeof(t_mp_ctrl));
-	mp_ctrl->piles_len = piles_len;
-	mp_ctrl->iterations = 0;
-	mp_ctrl->next_piles = 0;
-
-	// iterations = 0;
-	if (mp_ctrl->piles_len == 1 || mp_ctrl->piles_len == 2)
-		handle_piles_1_2_b(stack_a, stack_b, mp_ctrl->piles_len);
+	iterations = 0;
+	if (piles_len == 1 || piles_len == 2)
+		handle_piles_1_2_b(stack_a, stack_b, piles_len);
 	else
 	{
-		piles_in_a = init_piles_b(stack_a, stack_b, mp_ctrl->piles_len);
-		mp_ctrl->next_piles = piles_in_a;
-		while (mp_ctrl->iterations < piles_in_a)
+		piles_in_a = init_piles_b(stack_a, stack_b, piles_len);
+		while (iterations < piles_in_a)
 		{
 			x_iterations = 0;
-			x_pile_len = pile_len(mp_ctrl->piles_len, piles_in_a, mp_ctrl->iterations);
+			x_pile_len = pile_len(piles_len, piles_in_a, iterations);
 			if (x_pile_len == 1 || x_pile_len == 2)
 				x_handle_piles_1_2_a(stack_a, stack_b, x_pile_len);
 			else
@@ -89,7 +81,7 @@ static void	middle_point(t_node **stack_a, t_node **stack_b, int piles_len)
 				}
 				correction_mp(stack_a, stack_b, x_pile_len, 'a');
 			}
-			mp_ctrl->iterations++;
+			iterations++;
 		}
 		correction_mp(stack_a, stack_b, piles_len, 'b');
 	}
