@@ -6,7 +6,7 @@
 #    By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 13:08:18 by segarcia          #+#    #+#              #
-#    Updated: 2022/11/12 17:27:20 by segarcia         ###   ########.fr        #
+#    Updated: 2022/11/13 17:50:26 by segarcia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ PRINTF_PATH	= ./libft/ft_printf
 CC			= gcc
 RM			= rm -f
 CFLAGS		= -Wall -Werror -Wextra
+DEBUGFLAG	= -fsanitize=address
 
 all: $(NAME)
 

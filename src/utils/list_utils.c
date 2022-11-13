@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 10:42:21 by segarcia          #+#    #+#             */
-/*   Updated: 2022/11/13 15:48:53 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/11/13 17:36:31 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_node	*ft_new_node(int value)
 	if (!new)
 		return (NULL);
 	new->value = value;
+	new->index = 0;
 	new->next = NULL;
 	return (new);
 }
