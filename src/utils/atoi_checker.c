@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 09:32:33 by segarcia          #+#    #+#             */
-/*   Updated: 2022/11/13 15:31:42 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/11/13 15:46:46 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,13 @@ int	ft_atoi_checker(char ***split, t_node **stack_a, int j)
 	long long int	res;
 	int				sign;
 	int				i;
+	char			**split_x;
 	char			*str;
 
 	i = 0;
 	res = 0;
-	str = *split[j];
+	split_x = *split;
+	str = split_x[j];
 	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
 		|| str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
 		i++;
