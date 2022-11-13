@@ -6,12 +6,11 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:46:01 by segarcia          #+#    #+#             */
-/*   Updated: 2022/11/12 22:39:10 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/11/13 15:28:54 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
-#include <stdio.h>
 
 int	main(int argc, char **argv)
 {
@@ -39,6 +38,5 @@ int	main(int argc, char **argv)
 	else
 		sort_big(&stack_a, &stack_b);
 	free_stacks(&stack_a, &stack_b);
-	system("leaks push_swap");
-	return (0);
+	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 13:18:27 by segarcia          #+#    #+#             */
-/*   Updated: 2022/11/12 22:34:37 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/11/13 15:21:50 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "../libft/libft.h"
 # include "../libft/ft_printf/include/ft_printf.h"
 # include <signal.h>
-# include <stdio.h>
 
 typedef struct s_node
 {
@@ -29,9 +28,11 @@ typedef struct s_node
 int		save_into_stack(t_node **stack, int value);
 void	parse_input(char **argv, t_node **stack_a);
 void	free_stacks(t_node **stack_a, t_node **stack_b);
+void	free_parsing_exit(char ***split, t_node **stack_a, int i);
 // ---------- utils ---------- //
-int		ft_atoi_checker(const char *str);
+int		ft_atoi_checker(char ***split, t_node **stack_a, int j);
 void	exit_error(void);
+void	exit_error_free_stacks(t_node **stack_a, t_node **stack_b);
 int		is_stack_ordered(t_node *stack);
 void	print_ab(t_node *stack_a, t_node *stack_b);
 int		find_smallest_idx(t_node **stack);

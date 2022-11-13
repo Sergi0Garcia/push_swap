@@ -6,18 +6,19 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 09:32:33 by segarcia          #+#    #+#             */
-/*   Updated: 2022/10/26 09:08:08 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/11/13 15:31:42 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/push_swap.h"
 
-static void	check_max(long long int num)
+static int	check_max(long long int num)
 {
 	if (num < 0 && num < INT_MIN)
-		exit_error();
+		return (1);
 	if (num > 0 && num > INT_MAX)
-		exit_error();
+		return (1);
+	return (0);
 }
 
 static void	sign_validation(char num, int *i, int *sign)
@@ -31,14 +32,26 @@ static void	sign_validation(char num, int *i, int *sign)
 	}
 }
 
-int	ft_atoi_checker(const char *str)
+/**
+ * Atoi checker
+ * We check that every number is valid
+ * Handling exceptions for INT_MIN and INT_MAX
+ * If there is an error we free everyhing from parsing input
+ * @param split
+ * @param stack_a
+ * @param j
+ * @return int
+ */
+int	ft_atoi_checker(char ***split, t_node **stack_a, int j)
 {
 	long long int	res;
 	int				sign;
 	int				i;
+	char			*str;
 
 	i = 0;
 	res = 0;
+	str = *split[j];
 	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
 		|| str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
 		i++;
@@ -46,9 +59,10 @@ int	ft_atoi_checker(const char *str)
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
-			exit_error();
+			free_parsing_exit(split, stack_a, j);
 		res = (res * 10) + (str[i] - '0');
-		check_max(res * sign);
+		if (check_max(res * sign))
+			free_parsing_exit(split, stack_a, j);
 		i++;
 	}
 	return ((int)res * sign);
