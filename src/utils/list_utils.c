@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 10:42:21 by segarcia          #+#    #+#             */
-/*   Updated: 2022/11/12 20:49:35 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/11/13 15:48:53 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,4 @@ t_node	*ft_last_node(t_node *lst)
 		lst = lst->next;
 	}
 	return (lst);
-}
-
-void	ft_print_list(t_node *lst)
-{
-	while (lst)
-	{
-		ft_printf("lst: %i -- idx: %i\n", lst->value, lst->index);
-		lst = lst->next;
-	}
-}
-
-void	print_ab(t_node *stack_a, t_node *stack_b)
-{
-	ft_printf("---------\n");
-	ft_printf("--- a ---\n");
-	ft_print_list(stack_a);
-	ft_printf("--- b ---\n");
-	ft_print_list(stack_b);
-	ft_printf("---------\n");
 }
