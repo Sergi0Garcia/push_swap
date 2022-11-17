@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 09:30:11 by segarcia          #+#    #+#             */
-/*   Updated: 2022/11/15 10:08:05 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/11/17 10:18:22 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,10 @@ void	exit_error_free_stacks(t_node **stack_a, t_node **stack_b)
 	ft_printf("Error\n");
 	free_stacks(stack_a, stack_b);
 	exit(EXIT_FAILURE);
+}
+
+void	exit_success(t_node **stack_a, t_node **stack_b)
+{
+	free_stacks(stack_a, stack_b);
+	exit(EXIT_SUCCESS);
 }

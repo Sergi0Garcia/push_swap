@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:46:01 by segarcia          #+#    #+#             */
-/*   Updated: 2022/11/13 15:48:56 by segarcia         ###   ########.fr       */
+/*   Updated: 2022/11/17 10:17:52 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	parse_input(argv, &stack_a);
 	if (is_stack_ordered(stack_a))
-		exit(EXIT_SUCCESS);
+		exit_success(&stack_a, &stack_b);
 	stack_size = ft_lst_size(stack_a);
 	set_index_to_list(&stack_a);
 	if (stack_size == 2)
