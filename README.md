@@ -1,6 +1,6 @@
 # push_swap
 
-Sort random numbers from lowest to highest in the smallest number of moves.
+<em>Sort random numbers from lowest to highest using 2 stacks <br />
 
-testers: 
-https://github.com/lmalki-h/push_swap_tester
+Using midd point algorithm
+</em>
