@@ -4,3 +4,5 @@
 
 Using midd point algorithm
 </em>
+
+![Algorithm](./images/midd_point.png)
